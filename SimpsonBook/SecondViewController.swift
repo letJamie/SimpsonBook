@@ -15,10 +15,15 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var jobLabel: UILabel!
     
+    var selectedSimpson: SimpsonFamily?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        imageView.image = selectedSimpson?.image
+        nameLabel.text = selectedSimpson?.name
+        jobLabel.text = selectedSimpson?.job
         
     }
     

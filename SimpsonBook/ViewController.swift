@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     let lisa = SimpsonFamily(_name: "lisa", _job: "student", _image: UIImage(named: "lisa.png")!)
     let maggie = SimpsonFamily(_name: "maggie", _job: "baby", _image: UIImage(named: "maggie.png")!)
     
+    var mySimpson = [SimpsonFamily]()
+    var chosenSimpson: SimpsonFamily?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,25 +27,50 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        let homerArray = [homer, marge, bart, lisa, maggie]
+        mySimpson.append(homer)
+        mySimpson.append(marge)
+        mySimpson.append(bart)
+        mySimpson.append(lisa)
+        mySimpson.append(maggie)
+        
         
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 10
+        return mySimpson.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
         
-        cell.textLabel?.text = "hi"
+        cell.textLabel?.text = mySimpson[indexPath.row].name
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        chosenSimpson = mySimpson[indexPath.row]
+        performSegue(withIdentifier: "toSecondVC", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any? ) {
+        
+        if segue.identifier == "toSecondVC" {
+            
+            if let secondVC = segue.destination as? SecondViewController {
+                
+                secondVC.selectedSimpson = chosenSimpson
+                
+                
+            }
+        }
+        
+        
+    }
     
 }
 
